@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
+	position: relative;
 
 	.page-title {
 		// border: 1px solid red;
@@ -27,5 +28,6 @@
 	.table-container {
 		width: 100%;
 		position: relative;
+		overflow: hidden;
 	}
 }

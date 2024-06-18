@@ -5,7 +5,7 @@
 	height: 100vh;
 	position: relative;
 	background: #fbfbfb;
-	// overflow-y: hidden;
+	overflow-y: hidden;
 
 	.layout-container {
 		height: 100%;
@@ -20,4 +20,5 @@
 .page-container {
 	width: 100%;
 	padding: 140px 60px 40px 60px;
+	position: relative;
 }

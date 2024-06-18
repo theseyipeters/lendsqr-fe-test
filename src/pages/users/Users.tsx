@@ -31,7 +31,7 @@ const Users = () => {
 			email: "user2@example.com",
 			phoneNumber: "234-567-8901",
 			dateJoined: "2022-02-01",
-			status: "Inactive",
+			status: "Pending",
 		},
 		{
 			organization: "Org2",
@@ -39,7 +39,7 @@ const Users = () => {
 			email: "user2@example.com",
 			phoneNumber: "234-567-8901",
 			dateJoined: "2022-02-01",
-			status: "Inactive",
+			status: "Blacklisted",
 		},
 		{
 			organization: "Org2",
