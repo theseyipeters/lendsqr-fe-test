@@ -1,0 +1,31 @@
+@import "../base/variables.scss";
+
+.users-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+
+	.page-title {
+		// border: 1px solid red;
+		width: 100%;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: normal;
+		color: $primary;
+	}
+
+	.users-card-container {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 26px;
+	}
+
+	.table-container {
+		width: 100%;
+		position: relative;
+	}
+}

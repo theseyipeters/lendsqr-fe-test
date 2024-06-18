@@ -1,0 +1,106 @@
+@import "../base/variables.scss";
+
+* {
+	font-family: Work Sans;
+	overflow-y: auto;
+}
+
+.sidebar {
+	width: 100%;
+	height: 100vh;
+	// z-index: 30;
+	background: $white;
+	overflow: auto;
+	box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.04);
+
+	.sidebar-inner {
+		display: flex;
+		width: 100%;
+		height: fit-content;
+		padding: 140px 0px 50px 0px;
+		// border: 1px solid red;
+		overflow-y: scroll;
+		display: flex;
+		flex-direction: column;
+
+		.sidebar-nav {
+			display: flex;
+			flex-direction: column;
+			height: fit-content;
+			width: 100%;
+			padding-bottom: 20px;
+			overflow: scroll;
+
+			.top-nav {
+				padding-left: 30px;
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				.nav-link {
+					text-decoration: none;
+					display: flex;
+					flex-direction: row;
+					gap: 10px;
+					color: $primary;
+					align-items: center;
+					font-size: 16px;
+					// font-style: normal;
+					font-weight: 400;
+					line-height: normal;
+					// border: 1px solid black;
+					padding: 10px 0;
+					width: fit-content;
+				}
+			}
+
+			.customers-nav {
+				margin-top: 20px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+
+				.nav-heading {
+					padding-left: 30px;
+					font-size: 12px;
+					font-style: normal;
+					font-weight: 500;
+					line-height: normal;
+					text-transform: uppercase;
+					color: $tertiary;
+				}
+
+				.customers-nav-items-container {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+				}
+			}
+
+			.sidebar-end {
+				margin-top: 60px;
+				border-top: 1px solid rgba($primary, 0.1);
+				.logout-btn {
+					width: 100%;
+					height: 48px;
+					padding: 30px 30px;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					gap: 10px;
+					text-decoration: none;
+					color: $primary;
+					font-family: Work Sans;
+					border: none;
+					font-size: 16px;
+					background: transparent;
+				}
+				.version {
+					margin-top: 10px;
+					padding-left: 30px;
+					font-size: 12px;
+					color: $primary;
+				}
+			}
+		}
+	}
+}

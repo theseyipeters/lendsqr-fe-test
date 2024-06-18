@@ -1,0 +1,47 @@
+@import "../base/variables.scss";
+
+.search-box {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid rgba($primary, 0.2);
+	width: 100%;
+	border-radius: 9px;
+	position: relative;
+
+	.search-input {
+		border: none;
+		border-radius: 9px;
+		background: $white;
+		height: 40px;
+		flex-shrink: 0;
+		padding: 10px;
+		color: $tertiary;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+	}
+	.search-input::placeholder {
+		color: $tertiary;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+		opacity: 0.7;
+	}
+
+	.search-input:focus {
+		outline: none;
+	}
+
+	.search-btn {
+		border: none;
+		color: $white;
+		background: $secondary;
+		position: absolute;
+		right: 0;
+		height: 100%;
+		width: 56px;
+		border-radius: 0px 8px 8px 0px;
+	}
+}
