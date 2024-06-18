@@ -1,20 +1,29 @@
-import React from "react";
-import "../styles/components/ui/Dropdown.scss";
+import React, { forwardRef } from "react";
+import "../../styles/components/ui/Dropdown.scss";
 
 interface DropdownProps {
 	options: string[];
+	icons: JSX.Element[]; // Array of icons
 	onSelect: (option: string) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onSelect }) => {
+const Dropdown: React.ForwardRefRenderFunction<
+	HTMLDivElement,
+	DropdownProps
+> = ({ options, icons, onSelect }, ref) => {
 	return (
-		<div className="dropdown">
+		<div
+			className="dropdown"
+			ref={ref}>
 			<ul className="dropdown-menu">
 				{options.map((option, index) => (
 					<li
 						key={index}
 						onClick={() => onSelect(option)}>
-						{option}
+						<div>
+							{icons[index] && <span className="icon">{icons[index]}</span>}{" "}
+							{option}
+						</div>
 					</li>
 				))}
 			</ul>
@@ -22,4 +31,4 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onSelect }) => {
 	);
 };
 
-export default Dropdown;
+export default forwardRef(Dropdown);
