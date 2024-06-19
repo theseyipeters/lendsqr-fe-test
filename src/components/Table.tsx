@@ -1,8 +1,8 @@
-// src/components/Table.tsx
 import React, { useState, useEffect, useRef } from "react";
 import ReactPaginate from "react-paginate";
 import { format } from "date-fns";
 import Dropdown from "./ui/Dropdown";
+import FilterModal from "../components/modals/FilterModal"; // Import the FilterModal component
 import "../styles/components/Table.scss";
 import "../styles/components/ui/Dropdown.scss";
 import FilterIcon from "../icons/FilterIcon";
@@ -14,10 +14,11 @@ import StatusPill from "./ui/StatusPill";
 import PrevBtn from "../icons/PrevBtn";
 import NextBtn from "../icons/NextBtn";
 import { User } from "../types"; // Import User interface
+import DropIcon from "../icons/DropIcon";
 
 interface TableProps {
-	data: User[]; // Use the User interface here
-	onUserSelect: (user: User) => void; // Use the User interface here
+	data: User[];
+	onUserSelect: (user: User) => void;
 }
 
 const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
@@ -25,11 +26,14 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 	const [dropdownOpenIndex, setDropdownOpenIndex] = useState<number | null>(
 		null
 	);
+	const [pageInput, setPageInput] = useState("");
+	const [filteredData, setFilteredData] = useState<User[]>([]); // Initialize as empty array
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const [showFilterModal, setShowFilterModal] = useState(false);
 
 	const itemsPerPage = 9;
-	const pageCount = Math.ceil(data.length / itemsPerPage);
-	const displayedData = data.slice(
+	const pageCount = Math.ceil(filteredData.length / itemsPerPage);
+	const displayedData = filteredData.slice(
 		currentPage * itemsPerPage,
 		(currentPage + 1) * itemsPerPage
 	);
@@ -42,7 +46,7 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 		if (option === "View Details") {
 			onUserSelect(displayedData[index]);
 		}
-		console.log(`Selected ${option} for item ${index}`);
+
 		setDropdownOpenIndex(null);
 	};
 
@@ -63,9 +67,38 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 		};
 	}, []);
 
+	useEffect(() => {
+		setFilteredData(data); // Initialize filteredData with data prop
+	}, [data]);
+
 	const iconComponents = [<EyeIcon />, <Blacklist />, <ActivateUserIcon />];
 
-	console.log(data);
+	const handleFilterApply = (filteredData: User[]) => {
+		setFilteredData(filteredData);
+		setCurrentPage(0); // Reset to first page after filtering
+	};
+
+	const toggleFilterModal = () => {
+		setShowFilterModal(!showFilterModal);
+	};
+
+	const handlePageInputChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setPageInput(event.target.value);
+	};
+
+	const handleGoToPage = () => {
+		const pageNumber = parseInt(pageInput, 10);
+		if (pageNumber >= 1 && pageNumber <= pageCount) {
+			setCurrentPage(pageNumber - 1); // Convert to zero-based index
+		} else {
+			alert(
+				`Page doesn't exist. Please enter a number between 1 and ${pageCount}`
+			);
+		}
+		// setPageInput("");
+	};
 
 	return (
 		<div id="table">
@@ -86,7 +119,7 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 									{header !== "Options" && (
 										<div className="table-header">
 											<h3>{header}</h3>
-											<FilterIcon />
+											<FilterIcon onClick={toggleFilterModal} />
 										</div>
 									)}
 								</th>
@@ -94,45 +127,69 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 						</tr>
 					</thead>
 					<tbody className="table-body">
-						{displayedData.map((item, index) => (
-							<tr key={index}>
-								<td>{item.job?.company}</td>
-								<td>{item.username.toLowerCase()}</td>
-								<td className="user-email">{item.email}</td>
-								<td>{`080${item.phoneNumber}`}</td>
-								<td>{format(new Date(item.createdAt), "MMM d, yyyy h:mma")}</td>
-								<td>
-									<StatusPill status={item?.status?.toLowerCase()}>
-										{item.status}
-									</StatusPill>
-								</td>
-								<td>
-									<div className="options-wrapper">
-										<button
-											className="options-button"
-											onClick={() =>
-												setDropdownOpenIndex(
-													dropdownOpenIndex === index ? null : index
-												)
-											}>
-											<Options />
-										</button>
+						{displayedData.length > 0 ? (
+							displayedData.map((item, index) => (
+								<tr key={index}>
+									<td>{item.job?.company}</td>
+									<td>{item.username.toLowerCase()}</td>
+									<td className="user-email">{item.email}</td>
+									<td>{item.phoneNumber}</td>
+									<td>
+										{format(new Date(item.createdAt), "MMM d, yyyy h:mma")}
+									</td>
+									<td>
+										<StatusPill status={item?.status?.toLowerCase()}>
+											{item.status}
+										</StatusPill>
+									</td>
+									<td>
+										<div className="options-wrapper">
+											<button
+												className="options-button"
+												onClick={() =>
+													setDropdownOpenIndex(
+														dropdownOpenIndex === index ? null : index
+													)
+												}>
+												<Options />
+											</button>
+										</div>
+									</td>
+									{dropdownOpenIndex === index && (
+										<Dropdown
+											ref={dropdownRef}
+											icons={iconComponents}
+											options={[
+												"View Details",
+												"Blacklist User",
+												"Activate User",
+											]}
+											onSelect={(option) => handleDropdownSelect(option, index)}
+										/>
+									)}
+								</tr>
+							))
+						) : (
+							<tr className="no-records">
+								<td
+									className="no-records"
+									colSpan={7}>
+									<div className="records">
+										<p>No records found!</p>
 									</div>
 								</td>
-								{dropdownOpenIndex === index && (
-									<Dropdown
-										ref={dropdownRef}
-										icons={iconComponents}
-										options={[
-											"View Details",
-											"Blacklist User",
-											"Activate User",
-										]}
-										onSelect={(option) => handleDropdownSelect(option, index)}
-									/>
-								)}
 							</tr>
-						))}
+						)}
+
+						{showFilterModal && (
+							<div>
+								<FilterModal
+									data={data}
+									onClose={toggleFilterModal}
+									onFilterApply={handleFilterApply}
+								/>
+							</div>
+						)}
 					</tbody>
 				</table>
 			</div>
@@ -141,42 +198,47 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 				<aside className="showing">
 					<p>
 						Showing{" "}
-						<button>
-							{data.length}{" "}
-							<svg
-								width="14"
-								height="14"
-								viewBox="0 0 14 14"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<g opacity="0.6">
-									<path
-										d="M11.0573 3.99378C11.8984 3.15269 13.1595 4.45644 12.3184 5.25487L7.56759 10.0056C7.23127 10.3841 6.64282 10.3841 6.3065 10.0056L1.64002 5.38129C0.841037 4.5402 2.10267 3.27906 2.94322 4.1202L6.937 8.11398L11.0573 3.99378Z"
-										fill="#213F7D"
-									/>
-								</g>
-							</svg>
+						<button
+							className={showFilterModal ? "active" : ""}
+							onClick={toggleFilterModal}>
+							{filteredData.length} <DropIcon />
 						</button>{" "}
-						out of {data.length}
+						out of {filteredData.length}
 					</p>
 				</aside>
 
-				<aside>
-					<ReactPaginate
-						previousLabel={<PrevBtn />}
-						nextLabel={<NextBtn />}
-						breakLabel={"..."}
-						breakClassName={"break-me"}
-						pageCount={pageCount}
-						marginPagesDisplayed={1}
-						pageRangeDisplayed={1}
-						onPageChange={handlePageClick}
-						containerClassName={"pagination"}
-						activeClassName={"active"}
-						previousClassName={"previous"}
-						nextClassName={"next"}
-						disabledClassName={"disabled"}
-					/>
+				<aside className="pagination-container">
+					<div>
+						<ReactPaginate
+							previousLabel={<PrevBtn />}
+							nextLabel={<NextBtn />}
+							breakLabel={"..."}
+							breakClassName={"break-me"}
+							pageCount={pageCount}
+							marginPagesDisplayed={1}
+							pageRangeDisplayed={2}
+							onPageChange={handlePageClick}
+							containerClassName={"pagination"}
+							activeClassName={"active"}
+							previousClassName={"previous"}
+							nextClassName={"next"}
+							disabledClassName={"disabled"}
+						/>
+					</div>
+					<div className="page-input">
+						<p>Page</p>
+						<input
+							type="number"
+							className="page-input"
+							value={pageInput}
+							onChange={handlePageInputChange}
+						/>
+						<button
+							className="go-button"
+							onClick={handleGoToPage}>
+							Go
+						</button>
+					</div>
 				</aside>
 			</div>
 		</div>

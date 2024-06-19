@@ -110,7 +110,6 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user, onBack }) => {
 							className={activeTab === "general details" ? "tab active" : "tab"}
 							onClick={() => {
 								setActiveTab("general details");
-								console.log("General Details");
 							}}>
 							General Details
 						</button>

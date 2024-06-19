@@ -5,6 +5,7 @@
 }
 
 .table-wrapper {
+	height: 640px;
 	width: 100%;
 	border-radius: 4px;
 	border: 1px solid rgba(33, 63, 125, 0.06);
@@ -86,8 +87,26 @@
 			}
 		}
 
-		tr:last-child {
+		tr:nth-last-child(1) {
 			border: none;
+		}
+
+		.no-records {
+			height: 550px;
+			border: none;
+			text-align: center;
+
+			.records {
+				p {
+					color: #213f7d;
+
+					font-family: "Work Sans";
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 500;
+					line-height: normal;
+				}
+			}
 		}
 	}
 }
@@ -96,7 +115,7 @@
 	width: 100%;
 	display: flex;
 	flex-direction: row;
-	align-items: end;
+	align-items: center;
 	justify-content: space-between;
 	padding: 20px 0;
 
@@ -120,12 +139,68 @@
 				padding: 7px 12px;
 				border: none;
 				border-radius: 4px;
-				background: rgba(33, 63, 125, 0.1);
+				background: rgba(33, 63, 125, 0.05);
 				font-size: 14px;
 				font-style: normal;
 				font-weight: 500;
 				line-height: normal;
 				color: $primary;
+				cursor: pointer;
+				transition: background 0.3s, color 0.3s;
+
+				&:hover {
+					background: rgba(33, 63, 125, 0.2);
+				}
+
+				&.active {
+					background: rgba(33, 63, 125, 0.2);
+					// color: $secondary;
+				}
+			}
+		}
+	}
+
+	.pagination-container {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+
+		.page-input {
+			display: flex;
+			align-items: center;
+			margin-left: auto;
+			gap: 10px;
+
+			> p {
+				color: rgba($primary, 1);
+				font-size: 16px;
+			}
+
+			> input {
+				width: 50px;
+				height: 30px;
+				// margin-top: -3px;
+				z-index: 10;
+				text-align: center;
+				border: 0.5px solid rgba($primary, 0.6);
+				border-radius: 5px;
+				color: rgba($primary, 1);
+				font-size: 16px;
+			}
+
+			> input:focus {
+				outline: none;
+			}
+
+			> button {
+				color: $white;
+				width: 50px;
+				height: 30px;
+				border: 0.5px solid $secondary;
+				background: $secondary;
+				font-size: 16px;
+				border-radius: 5px;
 			}
 		}
 	}
@@ -149,6 +224,10 @@
 			color: rgba($tertiary, 1);
 			font-weight: 400;
 		}
+		&.disabled {
+			cursor: not-allowed;
+			color: rgba($tertiary, 0.6);
+		}
 	}
 }
 .previous,
@@ -159,7 +238,12 @@
 		transition: color 0.3s;
 	}
 
-	&:active svg {
+	&.active svg {
+		fill: rgba($primary, 1);
 		color: rgba($primary, 1);
+		background: rgba($primary, 1);
+	}
+	&.disabled svg {
+		color: rgba($tertiary, 0.6);
 	}
 }
