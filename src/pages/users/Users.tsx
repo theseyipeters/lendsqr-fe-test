@@ -21,7 +21,10 @@ const Users = () => {
 	useEffect(() => {
 		WebAppService.getUsers()
 			.then((response) => {
-				const users: User[] = response.result;
+				const users: User[] = response.result.map((user: User) => ({
+					...user,
+					createdAt: new Date(user.createdAt), // Convert createdAt string to Date
+				}));
 				setData(users);
 				const activeUsers = users?.filter(
 					(user) => user?.status === "active"
