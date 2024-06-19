@@ -1,12 +1,15 @@
 @import "../base/variables.scss";
 
+#table {
+	width: 100%;
+}
+
 .table-wrapper {
 	width: 100%;
 	border-radius: 4px;
 	border: 1px solid rgba(33, 63, 125, 0.06);
 	background: #fff;
 	box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
-	// position: relative;
 }
 
 .table {
@@ -15,7 +18,6 @@
 	margin: 20px auto;
 	font-size: 14px;
 	text-align: left;
-	// border: 2px solid black;
 
 	.t-head {
 		width: 100%;
@@ -58,6 +60,10 @@
 			height: 60px;
 			border-bottom: 1px solid rgba(33, 63, 125, 0.1);
 
+			.user-email {
+				text-transform: lowercase;
+			}
+
 			td {
 				color: $tertiary;
 
@@ -86,43 +92,74 @@
 	}
 }
 
+.table-end {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: end;
+	justify-content: space-between;
+	padding: 20px 0;
+
+	.showing {
+		> p {
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: normal;
+			color: $tertiary;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 10px;
+
+			> button {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 15px;
+				padding: 7px 12px;
+				border: none;
+				border-radius: 4px;
+				background: rgba(33, 63, 125, 0.1);
+				font-size: 14px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: normal;
+				color: $primary;
+			}
+		}
+	}
+}
+
 .pagination {
 	display: flex;
-	justify-content: center;
+	gap: 20px;
 	list-style-type: none;
 	padding: 0;
 
 	li {
 		margin: 0 5px;
 		cursor: pointer;
+		color: rgba($tertiary, 0.6);
+		font-size: 16px;
+		font-weight: 400;
 
 		&.active {
-			font-weight: bold;
+			font-weight: 500;
+			color: rgba($tertiary, 1);
+			font-weight: 400;
 		}
 	}
+}
+.previous,
+.next {
+	svg {
+		color: rgba($primary, 0.6);
 
-	a {
-		text-decoration: none;
-		color: #007bff;
+		transition: color 0.3s;
 	}
-}
 
-.filter-modal {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background: white;
-	padding: 20px;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	border-radius: 4px;
-}
-
-.filter-modal-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.5);
+	&:active svg {
+		color: rgba($primary, 1);
+	}
 }
