@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Table from "../../components/Table";
 import UserCard from "../../components/UserCard";
 import ActiveUsers from "../../icons/ActiveUsers";
@@ -6,142 +7,89 @@ import SavingUsers from "../../icons/SavingUsers";
 import Users2 from "../../icons/Users2";
 import Layout from "../../layout/Layout";
 import "../../styles/pages/Users.scss";
+import WebAppService from "../../services/WebAppService";
+import UserDetails from "./UserDetails";
+import { User } from "../../types";
 
 const Users = () => {
-	const data = [
-		{
-			organization: "Lendsqr",
-			username: "user1",
-			email: "user1@example.com",
-			phoneNumber: "123-456-7890",
-			dateJoined: "2022-01-01",
-			status: "Active",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Pending",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Blacklisted",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		{
-			organization: "Org2",
-			username: "user2",
-			email: "user2@example.com",
-			phoneNumber: "234-567-8901",
-			dateJoined: "2022-02-01",
-			status: "Inactive",
-		},
-		// Add more data here
-	];
+	const [data, setData] = useState<User[]>([]);
+	const [activeUsersCount, setActiveUsersCount] = useState(0);
+	const [loanUsersCount, setLoanUsersCount] = useState(0);
+	const [savingsUsersCount, setSavingsUsersCount] = useState(0);
+	const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+	useEffect(() => {
+		WebAppService.getUsers()
+			.then((response) => {
+				const users: User[] = response.result;
+				setData(users);
+				const activeUsers = users?.filter(
+					(user) => user?.status === "active"
+				).length;
+				setActiveUsersCount(activeUsers);
+
+				const loanUsers = users?.filter(
+					(user) => user.account.isLoanAccount === "true"
+				).length;
+				setLoanUsersCount(loanUsers);
+
+				const savingUsers = users?.filter(
+					(user) => user.account.isSavingsAccount === "true"
+				).length;
+				setSavingsUsersCount(savingUsers);
+			})
+			.catch((error) => {
+				console.error("Error fetching users", error);
+			});
+	}, []);
+
+	const handleUserSelect = (user: User) => {
+		setSelectedUser(user);
+	};
+
 	return (
-		<>
-			<Layout>
-				<div className="users-container">
-					<h3 className="page-title">Users</h3>
-
-					<div className="users-card-container">
-						<UserCard
-							icon={<Users2 />}
-							cardname={"users"}
-							cardnumber={"2,458"}
-						/>
-						<UserCard
-							icon={<ActiveUsers />}
-							cardname={"active users"}
-							cardnumber={"2,453"}
-						/>
-						<UserCard
-							icon={<LoanUsers />}
-							cardname={"users with loans"}
-							cardnumber={"12,453"}
-						/>
-						<UserCard
-							icon={<SavingUsers />}
-							cardname={"users with savings"}
-							cardnumber={"102,453"}
-						/>
-					</div>
-
-					<div className="table-container">
-						<Table data={data} />
-					</div>
-				</div>
-			</Layout>
-		</>
+		<Layout>
+			<div className="users-container">
+				{selectedUser ? (
+					<UserDetails
+						user={selectedUser}
+						onBack={() => setSelectedUser(null)}
+					/>
+				) : (
+					<>
+						<h3 className="page-title">Users</h3>
+						<div className="users-card-container">
+							<UserCard
+								icon={<Users2 />}
+								cardname={"Users"}
+								cardnumber={data?.length}
+							/>
+							<UserCard
+								icon={<ActiveUsers />}
+								cardname={"Active Users"}
+								cardnumber={activeUsersCount}
+							/>
+							<UserCard
+								icon={<LoanUsers />}
+								cardname={"Users with Loans"}
+								cardnumber={loanUsersCount}
+							/>
+							<UserCard
+								icon={<SavingUsers />}
+								cardname={"Users with Savings"}
+								cardnumber={savingsUsersCount}
+							/>
+						</div>
+						<div className="table-container">
+							<Table
+								data={data}
+								onUserSelect={handleUserSelect}
+							/>
+						</div>
+					</>
+				)}
+			</div>
+		</Layout>
 	);
 };
 
