@@ -40,7 +40,7 @@ export interface User {
 		company: string;
 	};
 	username: string;
-	createdAt: string;
+	createdAt: Date;
 	officeEmail: string;
 	socials: {
 		instagram: string;
