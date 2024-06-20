@@ -1,0 +1,35 @@
+@import "../base/variables.scss";
+
+.items-per-page-dropdown {
+	position: absolute;
+	background: white;
+	border: 1px solid rgba($primary, 0.1);
+	border-radius: 4px;
+	padding: 3px;
+	z-index: 10;
+	bottom: 100px;
+	left: 70px;
+	width: 60px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+
+	button {
+		display: block;
+		width: 100%;
+		padding: 1px;
+		background: none;
+		border: none;
+		text-align: center;
+		padding: 6px;
+		cursor: pointer;
+		color: $tertiary;
+
+		&:hover {
+			background-color: rgba($secondary, 0.08);
+		}
+		&.active {
+			background-color: rgba($secondary, 0.1);
+		}
+	}
+}
