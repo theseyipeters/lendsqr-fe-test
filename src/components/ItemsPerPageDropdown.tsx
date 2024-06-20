@@ -12,11 +12,11 @@ const ItemsPerPageDropdown: React.FC<ItemsPerPageDropdownProps> = ({
 	setItemsPerPage,
 	closeDropdown,
 }) => {
-	const options = [5, 10, 20, 50];
+	const options = [10, 20, 50, 100];
 
 	const handleOptionClick = (option: number) => {
 		setItemsPerPage(option);
-		closeDropdown(); // Close the dropdown after selecting an option
+		closeDropdown();
 	};
 
 	return (
