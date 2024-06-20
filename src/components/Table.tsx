@@ -31,9 +31,9 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 	const [pageInput, setPageInput] = useState("");
 	const [filteredData, setFilteredData] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [itemsPerPage, setItemsPerPage] = useState(9); // Add itemsPerPage state
+	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [showItemsPerPageDropdown, setShowItemsPerPageDropdown] =
-		useState(false); // Add state for dropdown visibility
+		useState(false);
 
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [showFilterModal, setShowFilterModal] = useState(false);
