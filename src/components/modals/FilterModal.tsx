@@ -16,6 +16,8 @@ interface FilterState {
 	username: string;
 	email: string;
 	phoneNumber: string;
+	startDate: string;
+	endDate: string;
 }
 
 const FilterModal: React.FC<FilterModalProps> = ({
@@ -31,6 +33,8 @@ const FilterModal: React.FC<FilterModalProps> = ({
 		username: "",
 		email: "",
 		phoneNumber: "",
+		startDate: "",
+		endDate: "",
 	});
 
 	const handleApplyFilters = () => {
@@ -44,7 +48,11 @@ const FilterModal: React.FC<FilterModalProps> = ({
 		}
 		if (filters.organization) {
 			filteredData = filteredData.filter(
-				(user) => user.job?.company === filters.organization
+				(user) =>
+					user.job &&
+					user.job.company
+						.toLowerCase()
+						.includes(filters.organization.toLowerCase())
 			);
 		}
 		if (filters.username) {
@@ -59,8 +67,16 @@ const FilterModal: React.FC<FilterModalProps> = ({
 		}
 		if (filters.phoneNumber) {
 			filteredData = filteredData.filter((user) =>
-				user.phoneNumber.includes(filters.phoneNumber)
+				("080" + user.phoneNumber).includes(filters.phoneNumber)
 			);
+		}
+		if (filters.startDate && filters.endDate) {
+			const start = new Date(filters.startDate).getTime();
+			const end = new Date(filters.endDate).getTime();
+			filteredData = filteredData.filter((user) => {
+				const userDate = new Date(user.createdAt).getTime();
+				return userDate >= start && userDate <= end;
+			});
 		}
 
 		// Sorting logic
@@ -91,6 +107,8 @@ const FilterModal: React.FC<FilterModalProps> = ({
 			username: "",
 			email: "",
 			phoneNumber: "",
+			startDate: "",
+			endDate: "",
 		});
 	};
 
@@ -135,7 +153,26 @@ const FilterModal: React.FC<FilterModalProps> = ({
 						}
 					/>
 				</label>
-
+				<label>
+					Start Date:
+					<input
+						type="date"
+						value={filters.startDate}
+						onChange={(e) =>
+							setFilters({ ...filters, startDate: e.target.value })
+						}
+					/>
+				</label>
+				<label>
+					End Date:
+					<input
+						type="date"
+						value={filters.endDate}
+						onChange={(e) =>
+							setFilters({ ...filters, endDate: e.target.value })
+						}
+					/>
+				</label>
 				<label>
 					Status:
 					<div className="custom-select">
