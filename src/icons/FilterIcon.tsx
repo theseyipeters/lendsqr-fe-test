@@ -1,5 +1,5 @@
 interface FilterIconProps {
-	onClick: () => void;
+	onClick: (event: React.MouseEvent<SVGElement, MouseEvent>) => void;
 }
 
 const FilterIcon: React.FC<FilterIconProps> = ({ onClick }) => (

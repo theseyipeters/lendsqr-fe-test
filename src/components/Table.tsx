@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import Dropdown from "./ui/Dropdown";
 import FilterModal from "../components/modals/FilterModal";
 import LoadingSpinner from "./LoadingSpinner";
+import ItemsPerPageDropdown from "./ItemsPerPageDropdown"; // Import the new dropdown
 import "../styles/components/Table.scss";
 import "../styles/components/ui/Dropdown.scss";
 import FilterIcon from "../icons/FilterIcon";
@@ -29,11 +30,14 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 	);
 	const [pageInput, setPageInput] = useState("");
 	const [filteredData, setFilteredData] = useState<User[]>([]);
-	const [loading, setLoading] = useState(true); // Add loading state
+	const [loading, setLoading] = useState(true);
+	const [itemsPerPage, setItemsPerPage] = useState(9); // Add itemsPerPage state
+	const [showItemsPerPageDropdown, setShowItemsPerPageDropdown] =
+		useState(false); // Add state for dropdown visibility
+
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [showFilterModal, setShowFilterModal] = useState(false);
 
-	const itemsPerPage = 9;
 	const pageCount = Math.ceil(filteredData.length / itemsPerPage);
 	const displayedData = filteredData.slice(
 		currentPage * itemsPerPage,
@@ -84,6 +88,10 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 
 	const toggleFilterModal = () => {
 		setShowFilterModal(!showFilterModal);
+	};
+
+	const toggleItemsPerPageDropdown = () => {
+		setShowItemsPerPageDropdown(!showItemsPerPageDropdown);
 	};
 
 	const handlePageInputChange = (
@@ -220,12 +228,19 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 					<p>
 						Showing{" "}
 						<button
-							className={showFilterModal ? "active" : ""}
-							onClick={toggleFilterModal}>
-							{filteredData.length} <DropIcon />
+							className={showItemsPerPageDropdown ? "active" : ""}
+							onClick={toggleItemsPerPageDropdown}>
+							{itemsPerPage} <DropIcon />
 						</button>{" "}
 						out of {filteredData.length}
 					</p>
+					{showItemsPerPageDropdown && (
+						<ItemsPerPageDropdown
+							itemsPerPage={itemsPerPage}
+							setItemsPerPage={setItemsPerPage}
+							closeDropdown={toggleItemsPerPageDropdown} // Pass the toggle function
+						/>
+					)}
 				</aside>
 
 				<aside className="pagination-container">
