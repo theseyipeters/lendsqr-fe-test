@@ -2,7 +2,7 @@
 
 #table {
 	width: 100%;
-	// overflow-x: scroll;
+	position: relative;
 
 	@include respond-to(sm) {
 		width: 100%;
@@ -292,6 +292,7 @@
 	text-decoration: none;
 	padding: 0;
 	font: inherit;
+	text-align: left;
 	transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 

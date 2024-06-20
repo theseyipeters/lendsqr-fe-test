@@ -10,16 +10,15 @@
 @import "components/UserCard.scss";
 @import "components/modals/FilterModal.scss";
 @import "components/ui/Dropdown.scss";
+@import "components/ItemsPerPageDropdown.scss";
 @import "pages/Login";
 @import "pages/Users.scss";
 @import "layout/Layout.scss";
 @import "layout/Heading.scss";
 @import "layout/Sidebar.scss";
 
-@include respond-to(md) {
-	::-webkit-scrollbar {
-		display: none;
-	}
+::-webkit-scrollbar {
+	display: none;
 }
 
 ::-webkit-scrollbar {
