@@ -13,6 +13,10 @@
 	font-weight: 400;
 	line-height: normal;
 	font-family: "Avenir Next";
+
+	@include respond-to(sm) {
+		height: 40px;
+	}
 }
 .input::placeholder {
 	color: $tertiary;
@@ -21,7 +25,7 @@
 	font-weight: 400;
 	line-height: normal;
 	opacity: 0.6;
-	// font-family: "Avenir Next";
+	font-family: "Avenir Next";
 }
 
 .input:focus {
