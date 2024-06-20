@@ -1,11 +1,9 @@
 interface FilterIconProps {
-	// style: any;
 	onClick: () => void;
 }
 
 const FilterIcon: React.FC<FilterIconProps> = ({ onClick }) => (
 	<svg
-		// style={style}
 		onClick={onClick}
 		width="16"
 		height="16"

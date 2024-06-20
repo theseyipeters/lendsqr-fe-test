@@ -26,7 +26,6 @@ import AuditLogs from "../icons/AuditLogs";
 import SystemsMessages from "../icons/SystemsMessages";
 import Logout from "../icons/Logout";
 
-// Define the type for navigation items
 interface NavItemType {
 	name: string;
 	icon: React.ComponentType;
@@ -77,17 +76,17 @@ const Sidebar: React.FC = () => {
 					<div className="top-nav">
 						<NavLink
 							className={"nav-link"}
-							to={"/"}>
+							to={"/users"}>
 							<Briefcase />
-							Switch Organization
-							<Dropdown2 />
+							<p>Switch Organization</p>
+							<span>
+								<Dropdown2 />
+							</span>
 						</NavLink>
 
-						<NavLink
-							to={"/"}
-							className="nav-link">
-							<Home /> Dashboard
-						</NavLink>
+						<div className="nav-link">
+							<Home /> <p>Dashboard</p>
+						</div>
 					</div>
 
 					<div className="customers-nav">
@@ -97,8 +96,8 @@ const Sidebar: React.FC = () => {
 							{customersNavItems.map((item) => (
 								<NavItem
 									key={item.link}
-									link={item.link}>
-									<item.icon />
+									link={item.link}
+									icon={item.icon}>
 									{item.name}
 								</NavItem>
 							))}
@@ -111,8 +110,8 @@ const Sidebar: React.FC = () => {
 							{businessNavItems.map((item) => (
 								<NavItem
 									key={item.link}
-									link={item.link}>
-									<item.icon />
+									link={item.link}
+									icon={item.icon}>
 									{item.name}
 								</NavItem>
 							))}
@@ -125,8 +124,8 @@ const Sidebar: React.FC = () => {
 							{settingsNavItems.map((item) => (
 								<NavItem
 									key={item.link}
-									link={item.link}>
-									<item.icon />
+									link={item.link}
+									icon={item.icon}>
 									{item.name}
 								</NavItem>
 							))}
@@ -136,7 +135,7 @@ const Sidebar: React.FC = () => {
 					<div className="sidebar-end">
 						<button className="logout-btn">
 							<Logout />
-							Logout
+							<p>Logout</p>
 						</button>
 
 						<p className="version">v1.2.0</p>

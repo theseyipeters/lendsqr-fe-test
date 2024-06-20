@@ -13,6 +13,10 @@
 
 		.layout-sidebar-container {
 			width: 320px;
+
+			@include respond-to(sm) {
+				width: 70px;
+			}
 		}
 	}
 }
@@ -21,4 +25,11 @@
 	width: 100%;
 	padding: 140px 60px 140px 60px;
 	position: relative;
+
+	@include respond-to(sm) {
+		padding: 100px 20px 140px 20px;
+	}
+	@include respond-to(md) {
+		padding: 100px 20px 140px 20px;
+	}
 }

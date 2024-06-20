@@ -7,6 +7,10 @@
 	gap: 40px;
 	position: relative;
 
+	@include respond-to(md) {
+		gap: 20px;
+	}
+
 	.page-title {
 		width: fit-content;
 		font-size: 24px;
@@ -14,14 +18,27 @@
 		font-weight: 500;
 		line-height: normal;
 		color: $primary;
+
+		@include respond-to(sm) {
+			font-size: 20px;
+		}
 	}
 
 	.users-card-container {
 		width: 100%;
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
 		justify-content: space-between;
 		gap: 26px;
+
+		@include respond-to(xs) {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1px;
+		}
+		@include respond-to(sm) {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+		}
 	}
 
 	.table-container {
@@ -36,6 +53,10 @@
 	flex-direction: column;
 	gap: 20px;
 
+	@include respond-to(sm) {
+		gap: 10px;
+	}
+
 	> .back-btn {
 		border: none;
 		background: transparent;
@@ -47,6 +68,12 @@
 		gap: 10px;
 		align-items: center;
 		color: $tertiary;
+
+		> p {
+			@include respond-to(sm) {
+				display: none;
+			}
+		}
 	}
 
 	.user-details-heading {
@@ -54,6 +81,12 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+
+		@include respond-to(sm) {
+			flex-direction: column;
+			align-items: start;
+			gap: 20px;
+		}
 	}
 
 	.action {
@@ -61,6 +94,14 @@
 		flex-direction: row;
 		gap: 20px;
 		width: fit-content;
+
+		@include respond-to(sm) {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+			gap: 10px;
+			width: 100%;
+		}
 
 		> button {
 			width: 170px;
@@ -77,6 +118,10 @@
 			line-height: normal;
 			letter-spacing: 1.4px;
 			text-transform: uppercase;
+
+			@include respond-to(sm) {
+				width: 100%;
+			}
 		}
 
 		.blacklist {
@@ -92,7 +137,7 @@
 
 	.user-details-card-1 {
 		margin-top: 20px;
-		padding: 30px 0px 0px 30px;
+		padding: 30px 30px 0px 30px;
 		border-radius: 4px;
 		border: 1px solid rgba(33, 63, 125, 0.06);
 		background: #fff;
@@ -104,6 +149,12 @@
 		flex-direction: column;
 		justify-content: center;
 		position: relative;
+
+		@include respond-to(md) {
+			height: fit-content;
+			padding: 30px 30px 30px 30px;
+			margin-top: 0px;
+		}
 
 		.no-data {
 			display: flex;
@@ -118,7 +169,7 @@
 				font-style: normal;
 				font-weight: 500;
 				line-height: normal;
-				color: $primary;
+				color: $tertiary;
 			}
 			> small {
 				color: #545f7d;
@@ -132,19 +183,35 @@
 
 		.statusPill {
 			position: absolute;
-			right: 40px;
-			top: 40px;
+			right: 20px;
+			top: 20px;
+
+			@include respond-to(md) {
+				right: 20px;
+				bottom: 20px;
+			}
 		}
 
 		.user-details-card-container {
 			display: flex;
 			align-items: center;
 
+			@include respond-to(md) {
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				gap: 20px;
+			}
+
 			> hr {
 				width: 1px;
 				height: 80px;
 				opacity: 0.2;
 				background: #545f7d;
+
+				@include respond-to(md) {
+					display: none;
+				}
 			}
 
 			.user-details-box-1 {
@@ -152,11 +219,26 @@
 				align-items: center;
 				gap: 20px;
 
+				@include respond-to(md) {
+					display: flex;
+					flex-direction: row-reverse;
+					align-items: center;
+					justify-content: space-between;
+					width: 100%;
+					gap: 10px;
+				}
+
 				.user-img-container {
 					width: 100px;
 					height: 100px;
 					background: #000;
 					border-radius: 50%;
+					border: 1px solid black;
+
+					@include respond-to(md) {
+						width: 80px;
+						height: 80px;
+					}
 				}
 
 				.user-name-holder {
@@ -172,6 +254,9 @@
 						font-style: normal;
 						font-weight: 500;
 						line-height: normal;
+						@include respond-to(sm) {
+							font-size: 16px;
+						}
 					}
 
 					> small {
@@ -187,12 +272,23 @@
 
 			.user-tier {
 				padding: 20px 30px;
+
+				@include respond-to(md) {
+					padding: 0;
+				}
 				.tier-container {
 					display: flex;
 					flex-direction: column;
 					gap: 10px;
 					align-items: center;
 					justify-content: center;
+
+					@include respond-to(md) {
+						display: flex;
+						flex-direction: column;
+						align-items: start;
+						gap: 5px;
+					}
 					> p {
 						color: $tertiary;
 						font-family: "Work Sans";
@@ -212,6 +308,10 @@
 			.user-balance {
 				padding: 20px 30px;
 
+				@include respond-to(md) {
+					padding: 0;
+				}
+
 				.balance-container {
 					display: flex;
 					flex-direction: column;
@@ -224,6 +324,10 @@
 						font-style: normal;
 						font-weight: 500;
 						line-height: normal;
+
+						@include respond-to(md) {
+							font-size: 18px;
+						}
 					}
 
 					.bank {
@@ -243,10 +347,17 @@
 			margin-top: auto;
 			width: 100%;
 
+			@include respond-to(sm) {
+				display: none;
+			}
+			@include respond-to(md) {
+				display: none;
+			}
+
 			> div {
 				width: 100%;
 				display: flex;
-				gap: 20px;
+				gap: 10px;
 
 				> button {
 					width: 170px;
@@ -322,6 +433,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
+
 		.detail-title {
 			color: $tertiary;
 			font-family: "Work Sans";
@@ -332,6 +444,7 @@
 			text-transform: uppercase;
 		}
 		.detail-item {
+			word-wrap: break-word;
 			color: $tertiary;
 			font-family: "Work Sans";
 			font-size: 16px;

@@ -7,6 +7,33 @@ $white: #ffffff;
 $error: #e4033b;
 $success: #39cdcc;
 
+$breakpoints: (
+	xs: 575.98px,
+	sm: 767.98px,
+	md: 991.98px,
+	lg: 1199.98px,
+	xl: 10000px,
+);
+
+// Mixin for media queries
+@mixin respond-to($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		$value: map-get($breakpoints, $breakpoint);
+
+		@if $breakpoint == xl {
+			@media (min-width: $value) {
+				@content;
+			}
+		} @else {
+			@media (max-width: $value) {
+				@content;
+			}
+		}
+	} @else {
+		@error "Unknown breakpoint #{$breakpoint}.";
+	}
+}
+
 .font-avenir {
 	font-family: "Avenir Next";
 }
