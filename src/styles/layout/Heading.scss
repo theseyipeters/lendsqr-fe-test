@@ -11,24 +11,44 @@
 	position: absolute;
 	z-index: 50;
 
+	@include respond-to(md) {
+		height: 70px;
+	}
+
 	.heading-inner {
 		width: 100%;
 		height: fit-content;
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 
-		.img-container {
-			display: flex;
-			align-items: center;
+		.imgg {
 			width: 253px;
-			.img-box {
-				width: 150px;
+
+			.img-container {
+				display: flex;
+				align-items: center;
+				width: fit-content;
+				.img-box {
+					width: 150px;
+
+					@include respond-to(sm) {
+						width: 40px;
+					}
+					@include respond-to(md) {
+						width: 100px;
+					}
+				}
 			}
 		}
 
 		.heading-search-container {
 			margin-left: 30px;
 			width: 400px;
+
+			@include respond-to(md) {
+				display: none;
+			}
 		}
 
 		.heading-end {
@@ -38,6 +58,10 @@
 			flex-direction: row;
 			gap: 50px;
 			margin-left: auto;
+
+			@include respond-to(sm) {
+				display: none;
+			}
 
 			.nav {
 				.nav-item {

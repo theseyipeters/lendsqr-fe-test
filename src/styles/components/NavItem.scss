@@ -1,13 +1,17 @@
 @import "../base/variables.scss";
 
 .navLink {
-	padding: 10px 30px;
-	border-left: 3px solid $secondary;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-	text-decoration: none;
-	color: rgba($primary, 0.6);
-	font-family: Work Sans;
+	// padding: 10px 30px;
+	// border-left: 3px solid $secondary;
+	// display: flex;
+	// flex-direction: row;
+	// align-items: center;
+	// gap: 10px;
+	// text-decoration: none;
+	// color: rgba($primary, 0.6);
+	// font-family: Work Sans;
+
+	@include respond-to(sm) {
+		display: none;
+	}
 }

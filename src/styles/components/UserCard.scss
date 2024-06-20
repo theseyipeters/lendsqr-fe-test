@@ -1,7 +1,7 @@
 @import "../base/variables.scss";
 
 .users-card {
-	width: 22%;
+	width: 100%;
 	height: 160px;
 	flex-shrink: 0;
 	border-radius: 4px;
@@ -12,8 +12,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
-	::-webkit-scrollbar {
-		display: none;
+
+	@include respond-to(sm) {
+		padding: 20px 20px;
 	}
 
 	.users-card-name {
@@ -22,9 +23,15 @@
 		font-style: normal;
 		font-weight: 500;
 		line-height: normal;
-		text-transform: uppercase;
 		color: $tertiary;
-		overflow: hidden;
+		// overflow: hidden;
+
+		@include respond-to(sm) {
+			font-size: 10px;
+		}
+		@include respond-to(md) {
+			font-size: 12px;
+		}
 	}
 	.users-card-number {
 		color: $primary;
@@ -35,5 +42,9 @@
 		line-height: normal;
 		text-transform: uppercase;
 		overflow: hidden;
+
+		@include respond-to(sm) {
+			font-size: 24px;
+		}
 	}
 }

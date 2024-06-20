@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactPaginate from "react-paginate";
 import { format } from "date-fns";
 import Dropdown from "./ui/Dropdown";
-import FilterModal from "../components/modals/FilterModal"; // Import the FilterModal component
+import FilterModal from "../components/modals/FilterModal";
+import LoadingSpinner from "./LoadingSpinner";
 import "../styles/components/Table.scss";
 import "../styles/components/ui/Dropdown.scss";
 import FilterIcon from "../icons/FilterIcon";
@@ -13,7 +14,7 @@ import ActivateUserIcon from "../icons/ActivateUserIcon";
 import StatusPill from "./ui/StatusPill";
 import PrevBtn from "../icons/PrevBtn";
 import NextBtn from "../icons/NextBtn";
-import { User } from "../types"; // Import User interface
+import { User } from "../types";
 import DropIcon from "../icons/DropIcon";
 
 interface TableProps {
@@ -27,7 +28,8 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 		null
 	);
 	const [pageInput, setPageInput] = useState("");
-	const [filteredData, setFilteredData] = useState<User[]>([]); // Initialize as empty array
+	const [filteredData, setFilteredData] = useState<User[]>([]);
+	const [loading, setLoading] = useState(true); // Add loading state
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [showFilterModal, setShowFilterModal] = useState(false);
 
@@ -68,14 +70,16 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 	}, []);
 
 	useEffect(() => {
-		setFilteredData(data); // Initialize filteredData with data prop
+		setLoading(true);
+		setFilteredData(data);
+		setLoading(false);
 	}, [data]);
 
 	const iconComponents = [<EyeIcon />, <Blacklist />, <ActivateUserIcon />];
 
 	const handleFilterApply = (filteredData: User[]) => {
 		setFilteredData(filteredData);
-		setCurrentPage(0); // Reset to first page after filtering
+		setCurrentPage(0);
 	};
 
 	const toggleFilterModal = () => {
@@ -91,13 +95,12 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 	const handleGoToPage = () => {
 		const pageNumber = parseInt(pageInput, 10);
 		if (pageNumber >= 1 && pageNumber <= pageCount) {
-			setCurrentPage(pageNumber - 1); // Convert to zero-based index
+			setCurrentPage(pageNumber - 1);
 		} else {
 			alert(
 				`Page doesn't exist. Please enter a number between 1 and ${pageCount}`
 			);
 		}
-		// setPageInput("");
 	};
 
 	return (
@@ -127,13 +130,31 @@ const Table: React.FC<TableProps> = ({ data, onUserSelect }) => {
 						</tr>
 					</thead>
 					<tbody className="table-body">
-						{displayedData.length > 0 ? (
+						{loading ? (
+							<tr>
+								<td colSpan={7}>
+									<LoadingSpinner />
+								</td>
+							</tr>
+						) : displayedData.length > 0 ? (
 							displayedData.map((item, index) => (
 								<tr key={index}>
-									<td>{item.job?.company}</td>
-									<td>{item.username.toLowerCase()}</td>
+									<td>
+										<button
+											className="clickable-text"
+											onClick={() => onUserSelect(item)}>
+											{item.job?.company}
+										</button>
+									</td>
+									<td>
+										<button
+											className="clickable-text"
+											onClick={() => onUserSelect(item)}>
+											{item.username.toLowerCase()}
+										</button>
+									</td>
 									<td className="user-email">{item.email}</td>
-									<td>{item.phoneNumber}</td>
+									<td>{`080${item.phoneNumber}`}</td>
 									<td>
 										{format(new Date(item.createdAt), "MMM d, yyyy h:mma")}
 									</td>

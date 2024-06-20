@@ -79,7 +79,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
 		});
 
 		onFilterApply(filteredData);
-		onClose(); // Close the modal after applying filters
+		onClose();
 	};
 
 	const handleResetFilters = () => {
@@ -149,7 +149,6 @@ const FilterModal: React.FC<FilterModalProps> = ({
 							<option value="inactive">Inactive</option>
 							<option value="pending">Pending</option>
 							<option value="blacklisted">Blacklisted</option>
-							{/* Add other status options if needed */}
 						</select>
 					</div>
 				</label>

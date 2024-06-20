@@ -1,7 +1,7 @@
 import "../styles/layout/Heading.scss";
 import logo from "../assets/lendsqrLogo.svg";
 import SearchBox from "../components/SearchBox";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import avatar from "../assets/avatar.svg";
 import BellIcon from "../icons/BellIcon";
 import Dropdown from "../icons/Dropdown";
@@ -10,11 +10,15 @@ const Heading = () => {
 	return (
 		<header className="heading">
 			<div className="heading-inner">
-				<div className="img-container">
-					<img
-						className="img-box"
-						src={logo}
-					/>
+				<div className="imgg">
+					<Link
+						to={"/"}
+						className="img-container">
+						<img
+							className="img-box"
+							src={logo}
+						/>
+					</Link>
 				</div>
 
 				<div className="heading-search-container">
@@ -25,7 +29,10 @@ const Heading = () => {
 					<div className="nav">
 						<NavLink
 							className="nav-item"
-							to={"/"}>
+							to={
+								"https://docs.google.com/document/d/1LITGjzrR9y9I5V7R8Bh5lG19dBxQ2HmV29xKGFZwvmQ/edit?usp=sharing"
+							}
+							target="_blank">
 							Docs
 						</NavLink>
 					</div>

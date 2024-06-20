@@ -11,6 +11,10 @@
 	border: 1px solid rgba(84, 95, 125, 0.14);
 	box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
 
+	@include respond-to(sm) {
+		top: 120px;
+	}
+
 	.filter-row {
 		display: flex;
 		flex-direction: column;
