@@ -16,10 +16,8 @@
 @import "layout/Heading.scss";
 @import "layout/Sidebar.scss";
 
-@include respond-to(md) {
-	::-webkit-scrollbar {
-		display: none;
-	}
+::-webkit-scrollbar {
+	display: none;
 }
 
 ::-webkit-scrollbar {
