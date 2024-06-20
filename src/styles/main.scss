@@ -1,0 +1,42 @@
+@import "base/variables";
+@import "base/global";
+@import "components/Button";
+@import "components/InputField.scss";
+@import "components/LoadingSpinner.scss";
+@import "components/NavItem.scss";
+@import "components/PasswordField.scss";
+@import "components/SearchBox.scss";
+@import "components/Table.scss";
+@import "components/UserCard.scss";
+@import "components/modals/FilterModal.scss";
+@import "components/ui/Dropdown.scss";
+@import "pages/Login";
+@import "pages/Users.scss";
+@import "layout/Layout.scss";
+@import "layout/Heading.scss";
+@import "layout/Sidebar.scss";
+
+@include respond-to(md) {
+	::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(33, 63, 125, 0.3);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba($secondary, 0.6);
+}

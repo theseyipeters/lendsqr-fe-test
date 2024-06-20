@@ -56,7 +56,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user, onBack }) => {
 			<button
 				className="back-btn"
 				onClick={onBack}>
-				<BackIcon /> Back to Users
+				<BackIcon /> <p>Back to Users</p>
 			</button>
 			<div className="user-details-heading">
 				<h3 className="page-title">User Details</h3>

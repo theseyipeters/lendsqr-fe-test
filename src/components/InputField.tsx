@@ -1,21 +1,19 @@
 import "../styles/components/InputField.scss";
 
-// interface InputFieldProps {
-// 	placeholder: () => string;
-// 	type: () => void;
-// }
-
-const InputField = ({ placeholder, type }: any) => {
+export default function InputField({
+	placeholder,
+	type,
+	value,
+	onChange,
+}: any) {
 	return (
-		<div>
-			<input
-				className="input"
-				placeholder={placeholder}
-				type={type}
-				required
-			/>
-		</div>
+		<input
+			className="input"
+			placeholder={placeholder}
+			type={type}
+			value={value}
+			onChange={onChange}
+			required
+		/>
 	);
-};
-
-export default InputField;
+}

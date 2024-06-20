@@ -106,7 +106,7 @@ The application is deployed on Vercel and can be accessed at:
 
 https://oluwaseyi-peter-ajiboye-lendsqr-fe-test.vercel.app
 
-If you have any questions or need further clarification, please feel free to contact me at hellosagethedev@example.com.
+If you have any questions or need further clarification, please feel free to contact me at hellosagethedev@gmail.com.
 
 ---
 

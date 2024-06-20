@@ -40,6 +40,7 @@ interface User {
 		area: string;
 		duration: string;
 		monthlyIncome: string;
+		company: string;
 	};
 	officeEmail: string;
 	socials: {
@@ -144,11 +145,11 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ user }) => {
 						title="sector of employment"
 						item={user.job.area}
 					/>
-
 					<Detail
-						title="duration of employment"
-						item={`${user.job.duration} years`}
+						title="organization"
+						item={user.job.company}
 					/>
+
 					<Detail
 						title="office email"
 						item={user.officeEmail.toLowerCase()}
@@ -160,6 +161,11 @@ const GeneralDetails: React.FC<GeneralDetailsProps> = ({ user }) => {
 					<Detail
 						title="loan repayment"
 						item={`${formatCurrency(loanRepayment)}.00`}
+					/>
+
+					<Detail
+						title="duration of employment"
+						item={`${user.job.duration} years`}
 					/>
 				</div>
 			</div>
